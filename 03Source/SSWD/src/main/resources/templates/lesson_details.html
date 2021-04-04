@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>米思米中国人才教育培训工程</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body onload="initPage()">
+<div class="container-fluid">
+  <div class="container" height="50">
+    <ul class="nav nav-tabs">
+      <li><img src="https://www.misumi.co.jp/assets/img/common/logo_sp.svg" class="img-thumbnail" alt="Home page" width="150"></li>
+      <li><a href="#">培训基本方针</a></li>
+      <li><a href="#">活动和实施计划</a></li>
+      <li class="active"><a href="#">课程一览</a></li>
+      <li><a href="#">社内报</a></li>
+      <li><a href="#">登陆</a></li>
+    </ul>
+    <br>
+    <div class="row">
+      <!--左边栏-->
+      <div class="col-sm-3" style="background-color:lavender;" id="stat_info">
+        <h4>本课程统计</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>项目</th>
+              <th style="text-align: right">数据</th>
+            </tr>
+          </thead>
+          <tbody id="stat_comments"></tbody>
+        </table>
+<!--
+        <h4>培训讲座统计</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>项目</th>
+              <th style="text-align: right">数据</th>
+            </tr>
+          </thead>
+          <tbody id="stat_total"></tbody>
+        </table>
+-->
+      </div>
+      <!--中部-->
+      <div class="col-sm-9" style="background-color:lavenderblush;">
+        <!--课程标题-->
+        <h4 id="id_lessonTitle">课程标题</h4>
+        <div class="panel-group" id="lessonSummary">
+          <!--对象，折叠-->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#lessonSummary" href="#collapse1">対象者</a>
+              </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+              <div class="panel-body">
+                <p>・明確でわかりやすい文書の書き方を学びたい方</p>
+                <p>・文書の質を向上させたい方、作成時間を短縮したい方</p>
+                <p>◆受講される方やご担当者さまのお悩み</p>
+                <p>「相手にわかりやすく、伝えるための書き方が難しいと感じる」</p>
+                <p>「議事録や報告書を書き慣れていないために、作成するのに時間がかかる」</p>
+                <p>「部下に文書作成を依頼しても、欲しい情報が全く書かれていない」</p>
+              </div>
+            </div>
+          </div>
+          <!--内容，折叠-->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#lessonSummary" href="#collapse2">研修内容</a>
+              </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+              <div class="panel-body">
+                <p>本研修では、読み手を意識することを大前提とした上で、相手に分かりやすい文書作成の方法を学んでいただきます。</p>
+                <p>◆研修のポイント</p>
+                <p>①文書の基本的な構成ルール～主語・述語や一文あたりの文字数まで</p>
+                <p>②伝えたいことを簡潔にまとめる力～情報の取捨選択による要約</p>
+                <p>③相手が欲しい情報を考える力～キーワードや数字を記載する</p>
+                <p>④社外文書の基本的な型～ＦＡＸ送付状・書類送付状・案内状・お祝い状・お詫び状・お礼状・依頼状</p>
+              </div>
+            </div>
+          </div>
+          <!--目的，折叠-->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#lessonSummary" href="#collapse3">ワークのポイント</a>
+              </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+              <div class="panel-body">
+                <p>研修のポイントを踏まえ、現場に適した題材の演習にて要約を行い、スキルの定着を図ります。</p>
+                <p>①上司に提出する報告書の要約文作成</p>
+                <p>②社内・社外メールの作成</p>
+              </div>
+            </div>
+          </div>
+          <!--课程附件，折叠-->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#lessonSummary" href="#collapse4">课程附件</a>
+              </h4>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse">
+              <div class="panel-body"></div>
+            </div>
+          </div>
+        </div>
+        <!--课程计划列表-->
+        <h4>课程计划</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>培训日期</th>
+              <th>讲师姓名</th>
+              <th>限定人数</th>
+              <th>已报人数</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="lessonFuture">
+            <tr>
+              <td>2019年3月8日</td>
+              <td>讲师1</td>
+              <td>10人</td>
+              <td>1人</td>
+              <td class="clickableCell" onclick="enrollTraining(this, 'UI设计培训课程-BS架构')">报名</td>
+            </tr>
+            <tr>
+              <td>2019年3月21日</td>
+              <td>讲师1</td>
+              <td>10人</td>
+              <td>1人</td>
+              <td class="clickableCell" onclick="enrollTraining(this, 'UI设计培训课程-BS架构')">报名</td>
+            </tr>
+            <tr>
+              <td>2019年3月29日</td>
+              <td>讲师1</td>
+              <td>10人</td>
+              <td>1人</td>
+              <td class="clickableCell" onclick="enrollTraining(this, 'UI设计培训课程-BS架构')">报名</td>
+            </tr>
+          </tbody>
+        </table>
+        <!--提问，折叠-->
+        <table class="table table-striped">
+          <thead>
+            <tr><th>Q&A</th></tr>
+          </thead>
+          <tbody id="qanda">
+          <tr><th><h5 class="media-heading">Q：为什么结束时str[1]==0呢？<small><i>Posted on February 19, 2016</i></small></h5></th></tr>
+          <tr><th><h5 class="media-heading">A：字符串结束标记，最后一个字符为0。<small><i>Posted on February 19, 2016</i></small></h5></th></tr>
+          </tbody>
+        </table>
+        <div class="input-group">
+          <input type="text" class="form-control" id="questions" placeholder="Input your question">
+	      <div class="input-group-btn">
+	        <button class="btn btn-default"><i class="glyphicon glyphicon-question-sign"></i></button>
+          </div>
+        </div>
+        <br>
+        <!--往期课程列表-->
+        <h4>往期课程</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>培训日期</th>
+              <th>讲师姓名</th>
+              <th>参加人数</th>
+              <th>课程评分</th>
+              <th>讲师评分</th>
+            </tr>
+          </thead>
+          <tbody id="lessonPast">
+            <tr>
+              <td>2019年2月21日</td>
+              <td>讲师1</td>
+              <td>10人</td>
+              <td>4.91</td>
+              <td>4.51</td>
+            </tr>
+            <tr>
+              <td>2019年2月8日</td>
+              <td>讲师1</td>
+              <td>10人</td>
+              <td>4.57</td>
+              <td>4.83</td>
+            </tr>
+		  </tbody>
+		</table>
+        <!--评论，折叠-->
+        <div class="media">
+          <div class="media-left"></div>
+          <div class="media-body">
+            <h5 class="media-heading">John Doe <small><i>Posted on February 19, 2016</i> <a data-toggle="collapse" data-target="#reply_01">reply</a></small></h5>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div id="reply_01" class="collapse">
+              <div class="input-group">
+                <input type="text" class="form-control" id="comments" placeholder="Reply here">
+                <div class="input-group-btn">
+                  <button class="btn btn-default"><i class="glyphicon glyphicon-comment"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Nested media object -->
+            <div class="media">
+              <div class="media-left">
+              </div>
+              <div class="media-body">
+                <h5 class="media-heading">John Doe <small><i>Posted on February 19, 2016</i> <a data-toggle="collapse" data-target="#reply_02">reply</a></small></h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <div id="reply_02" class="collapse">
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="comments" placeholder="Reply here">
+                    <div class="input-group-btn">
+                      <button class="btn btn-default"><i class="glyphicon glyphicon-comment"></i></button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Nested media object -->
+                <div class="media">
+                  <div class="media-left">
+                  </div>
+                  <div class="media-body">
+                    <h5 class="media-heading">John Doe <small><i>Posted on February 19, 2016</i> <a data-toggle="collapse" data-target="#reply_03">reply</a></small></h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <div id="reply_03" class="collapse">
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="comments" placeholder="Reply here">
+                        <div class="input-group-btn">
+                          <button class="btn btn-default"><i class="glyphicon glyphicon-comment"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="input-group">
+          <input type="text" class="form-control" id="comments" placeholder="Comment here">
+          <div class="input-group-btn">
+            <button class="btn btn-default"><i class="glyphicon glyphicon-comment"></i></button>
+          </div>
+        </div>
+		<br>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function displayStat(data){
+  var tableCmt = document.getElementById("stat_comments");
+  for (i = 0; i < data.stat_comments.length; i++){
+    var newRow = document.createElement("tr");
+    var cellItem = document.createElement("td");
+    cellItem.innerHTML = data.stat_comments[i].item;
+    var cellValue = document.createElement("td");
+    cellValue.setAttribute("style", "text-align: right");
+    cellValue.innerHTML = data.stat_comments[i].value;
+    newRow.appendChild(cellItem);
+    newRow.appendChild(cellValue);
+    tableCmt.appendChild(newRow);
+  }
+/*
+  var tableTtl = document.getElementById("stat_total");
+  for (i = 0; i < data.stat_total.length; i++){
+    var newRow = document.createElement("tr");
+    var cellItem = document.createElement("td");
+    cellItem.innerHTML = data.stat_total[i].item;
+    var cellValue = document.createElement("td");
+    cellValue.setAttribute("style", "text-align: right");
+    cellValue.innerHTML = data.stat_total[i].value + data.stat_total[i].unit;
+    newRow.appendChild(cellItem);
+    newRow.appendChild(cellValue);
+    tableTtl.appendChild(newRow);
+  }
+  */
+  var divInfo = document.getElementById("stat_info");
+  var divRange = document.createElement("div");
+  divRange.innerHTML = "#1 统计范围：" + data.rangeDuring;
+  var divUpdate = document.createElement("div");
+  divUpdate.innerHTML = "#2 更新时间：" + data.updatedAt;
+  divInfo.appendChild(divRange);
+  divInfo.appendChild(divUpdate);
+}
+
+function initPage(){
+// load data!
+  var cmts = JSON.parse('{"stat_comments":[{"item":"课程平均评价", "value":"4.815"},{"item":"讲师平均打分", "value":"4.695"}, {"item":"培训总人次", "value":558, "unit":"人次"}, {"item":"培训总次数", "value":7, "unit":"次"}], "stat_total":[{"item":"培训总人次", "value":558, "unit":"人次"}, {"item":"培训总次数", "value":7, "unit":"次"}, {"item":"培训课程", "value":2292, "unit":"种"}], "updatedAt":"2019年3月6日", "rangeDuring":"2018年4月～2019年3月"}');
+
+  displayStat(cmts);
+}
+</script>
+
+</body>
+</html>

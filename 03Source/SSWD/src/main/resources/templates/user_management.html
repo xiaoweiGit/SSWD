@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>米思米中国人才教育培训工程</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body onload="initPage()">
+  <div class="container" height="50">
+    <ul class="nav nav-tabs">
+      <li><a href="first_page.html"><img src="https://www.misumi.co.jp/assets/img/common/logo_sp.svg" class="img-thumbnail" alt="Home page" width="150"></a></li>
+      <li><a href="lesson_management.html">课程管理</a></li>
+      <li><a href="news_management.html">社内报管理</a></li>
+      <li class="active"><a href="user_management.html">人员管理</a></li>
+      <li><a href="statistic.html">统计管理</a></li>
+      <li><a href="login.html">登陆/管理后台</a></li>
+    </ul>
+    <br>
+    <div class="row">
+      <div class="col-sm-12" style="background-color:white;">
+        <table class="table table">
+            <thead>
+                <tr>
+                <th>员工号</th>
+                <th>姓名</th>
+                <th>部门</th>
+                <th>职级</th>
+                <th>邮箱</th>
+                <th>讲师</th>
+                <th></th>
+                </tr>
+            </thead>
+            <tbody id="newslist">
+              <!--范例：已有员工-->
+              <tr>
+                <td>sh0001</td>
+                <td>李青</td>
+                <td>电子电气部</td>
+                <td>5-A</td>
+                <td>q_li@misumi.sh.cn</td>
+                <td><input type="checkbox"></td>
+                <td><a>更新</a>|<a>复位密码</a><td>
+              </tr>
+              <!--范例：编辑员工-->
+              <tr>
+                <td>sh0021</td>
+                <td>杨凌</td>
+                <td>营业部</td>
+                <td>3-A</td>
+                <td>l_yang@misumi.sh.cn</td>
+                <td><input type="checkbox" checked></td>
+                <td><a>更新</a>|<a>复位密码</a><td>
+              </tr>
+              <!--范例：添加员工-->
+              <tr>
+                <td><input type="text" value="gz0505" style="width:100%;"></td>
+                <td><input type="text" value="黄兴" style="width:100%;"></td>
+                <td><input type="text" value="网络推进部" style="width:100%;"></td>
+                <td>
+                  <select class="form-control" id="sel1" style="width:100%;">
+                    <option>1-A</option>
+                    <option>2-A</option>
+                    <option>3-B</option>
+                    <option>4-A</option>
+                  </select>
+                </td>
+                <td>x_huang@misumi.sh.cn</td>
+                <td><input type="checkbox" style="width:100%;"></td>
+                <td><a>提交</a><td>
+              </tr>
+            </tbody>
+        </table>
+      	<br>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search">
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+              <i class="glyphicon glyphicon-folder-open"></i>
+            </button>
+            <button class="btn btn-default" type="submit">
+              <i class="glyphicon glyphicon-cloud-upload"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+function initPage(){
+// load data!
+  var data = JSON.parse('{"news":[{ "newtitile":"社内报1", "url":"http://www.tourismsoutheast.com/assets/training+options.png", "content":"Fido" ,"newstatus":1, "createtime":"2019-03-25"},{ "newtitile":"社内报2", "url":"https://appita.com/images/template/training.png", "content":"Felix"  , "newstatus":1, "createtime":"2019-03-27"},{ "newtitile":"社内报3", "url":"http://www.tourismsoutheast.com/assets/training+options.png", "content":"Lightning"  ,"newstatus":1, "createtime":"2019-03-29"}]}');
+
+
+  //displayNews(data);
+}
+</script>
+    
+</body>
+</html>

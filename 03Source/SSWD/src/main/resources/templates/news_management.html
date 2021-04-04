@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>米思米中国人才教育培训工程</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body onload="initPage()">
+  <div class="container" height="50">
+    <ul class="nav nav-tabs">
+      <li><a href="first_page.html"><img src="https://www.misumi.co.jp/assets/img/common/logo_sp.svg" class="img-thumbnail" alt="Home page" width="150"></a></li>
+      <li><a href="lesson_management.html">课程管理</a></li>
+      <li class="active"><a href="#">社内报管理</a></li>
+      <li><a href="staff_management.html">人员管理</a></li>
+      <li><a href="statistic.html">统计管理</a></li>
+      <li><a href="login.html">登陆/管理后台</a></li>
+    </ul>
+    <br>
+    <div class="row">
+      <div class="col-sm-12" style="background-color:white;">
+        <table class="table table">
+            <thead>
+                <tr>
+                <th>创建日期</th>
+                <th>标题</th>
+                <th>内容</th>
+                <th>状态</th>
+                <th></th>
+                </tr>
+            </thead>
+            <tbody id="newslist">
+                <tr>
+                <td>2019年5月8日</td>
+                <td>标题1</td>
+                <td><a data-toggle="collapse" data-target="#newscontent_01">Content</a></td>
+                <td>已通过</td>
+                <td><a>删除</a></td>
+                </tr>
+                <tr><td colspan="5"><div id="newscontent_01" class="collapse">汉字是古代人根据现实事物演变而来的。现在我来说一下《汉字的故事》中的一些小故事吧。例如：“一壶酒”与“一活鹅”的故事。因为“壶”和“湖”同音，所以地主要穷人还给他一“湖”酒。后来，王羲之用一“活”鹅和一“河”鹅反击了他。这个故事讲了汉字当中的同音字。很多汉字还是多音字。</div></td></tr>
+                <tr>
+                <td>2019年3月21日</td>
+                <td>标题2</td>
+                <td><a data-toggle="collapse" data-target="#newscontent_02">Content</a></td>
+                <td><a>批准</a></td>
+                <td><a>删除</a></td>                
+                </tr>
+                <tr><td colspan="5"><div id="newscontent_02" class="collapse">这是个尚未审批通过的社内报。</div></td></tr>
+                <tr>
+                <td>[Today]</td>
+                <td><input type="text" id="newTitle" placeholder="输入新标题"></td>
+                <td><a data-toggle="collapse" data-target="#newscontent_03">Content</a></td>
+                <td>草稿</td>
+                <td><a>提交</a></td>
+                </tr>
+                <tr>
+                  <td colspan="5"> 
+                  <div id="newscontent_03" class="collapse">
+                    <!--将已上课程的感想文与课程进行关联-->
+                      <!--感想文编写框亦在此-->
+					    <textarea class="form-control" rows="5" id="comment">这是一个正在添加中的社内报。</textarea>
+                  </div>
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<script>
+function initPage(){
+// load data!
+  var data = JSON.parse('{"news":[{ "newtitile":"社内报1", "url":"http://www.tourismsoutheast.com/assets/training+options.png", "content":"Fido" ,"newstatus":1, "createtime":"2019-03-25"},{ "newtitile":"社内报2", "url":"https://appita.com/images/template/training.png", "content":"Felix"  , "newstatus":1, "createtime":"2019-03-27"},{ "newtitile":"社内报3", "url":"http://www.tourismsoutheast.com/assets/training+options.png", "content":"Lightning"  ,"newstatus":1, "createtime":"2019-03-29"}]}');
+
+
+  //displayNews(data);
+}
+</script>
+    
+</body>
+</html>

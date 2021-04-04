@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>米思米中国人才教育培训工程</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body onload="initPage()">
+  <div class="container" height="50">
+    <ul class="nav nav-tabs">
+      <li><a href="first_page.html"><img src="https://www.misumi.co.jp/assets/img/common/logo_sp.svg" class="img-thumbnail" alt="Home page" width="150"></a></li>
+      <li><a href="lesson_management.html">课程管理</a></li>
+      <li><a href="news_management.html">社内报管理</a></li>
+      <li class="active"><a href="user_management.html">人员管理</a></li>
+      <li><a href="statistic.html">统计管理</a></li>
+      <li><a href="login.html">登陆/管理后台</a></li>
+    </ul>
+    <br>
+     <div class="row">
+      <div class="col-sm-12" style="background-color:lavender;" id="stat_info">
+        <h4>培训质量总评价</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>项目</th>
+              <th style="text-align: right">数据</th>
+            </tr>
+          </thead>
+          <tbody id="stat_comments"></tbody>
+        </table>
+        <h4>培训讲座统计</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>项目</th>
+              <th style="text-align: right">数据</th>
+            </tr>
+          </thead>
+          <tbody id="stat_total"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<script>
+function initPage(){
+function displayStat(data){
+  var tableCmt = document.getElementById("stat_comments");
+  for (i = 0; i < data.stat_comments.length; i++){
+    var newRow = document.createElement("tr");
+    var cellItem = document.createElement("td");
+    cellItem.innerHTML = data.stat_comments[i].item;
+    var cellValue = document.createElement("td");
+    cellValue.setAttribute("style", "text-align: right");
+    cellValue.innerHTML = data.stat_comments[i].value;
+    newRow.appendChild(cellItem);
+    newRow.appendChild(cellValue);
+    tableCmt.appendChild(newRow);
+  }
+
+  var tableTtl = document.getElementById("stat_total");
+  for (i = 0; i < data.stat_total.length; i++){
+    var newRow = document.createElement("tr");
+    var cellItem = document.createElement("td");
+    cellItem.innerHTML = data.stat_total[i].item;
+    var cellValue = document.createElement("td");
+    cellValue.setAttribute("style", "text-align: right");
+    cellValue.innerHTML = data.stat_total[i].value + data.stat_total[i].unit;
+    newRow.appendChild(cellItem);
+    newRow.appendChild(cellValue);
+    tableTtl.appendChild(newRow);
+  }
+  
+  var divInfo = document.getElementById("stat_info");
+  var divRange = document.createElement("div");
+  divRange.innerHTML = "#1 统计范围：" + data.rangeDuring;
+  var divUpdate = document.createElement("div");
+  divUpdate.innerHTML = "#2 更新时间：" + data.updatedAt;
+  divInfo.appendChild(divRange);
+  divInfo.appendChild(divUpdate);
+  
+  var btn = document.createElement("button");
+  btn.innerHTML = "重新统计";
+  divInfo.appendChild(btn);
+}
+
+// load data!
+  var cmts = JSON.parse('{"stat_comments":[{"item":"学员对培训内容平均理解程度", "value":"4.815"},{"item":"学员对讲师的平均打分", "value":"4.695"}], "stat_total":[{"item":"累计学员", "value":55948, "unit":"人次"}, {"item":"累计培训", "value":7238, "unit":"次"}, {"item":"培训课程", "value":2292, "unit":"种"}], "updatedAt":"2019年3月6日", "rangeDuring":"2018年4月～2019年3月"}');
+
+  displayStat(cmts);
+}
+</script>
+    
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>米思米中国人才教育培训工程</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body onload="initPage()">
+<div class="container-fluid">
+  <div class="container" height="50">
+    <ul class="nav nav-tabs">
+      <li><img src="https://www.misumi.co.jp/assets/img/common/logo_sp.svg" class="img-thumbnail" alt="Home page" width="150"></li>
+      <li><a href="#">培训基本方针</a></li>
+      <li><a href="#">活动和实施计划</a></li>
+      <li><a href="#">课程一览</a></li>
+      <li><a href="#">社内报</a></li>
+      <li class="active"><a href="#">我的课程</a></li>
+    </ul>
+    <br>
+    <div class="row">
+      <!--左边栏-->
+      <div class="col-sm-3" style="background-color:lavender;" id="stat_info">
+        <h4>本课程统计</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>项目</th>
+              <th style="text-align: right">数据</th>
+            </tr>
+          </thead>
+          <tbody id="stat_comments"></tbody>
+        </table>
+<!--
+        <h4>培训讲座统计</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>项目</th>
+              <th style="text-align: right">数据</th>
+            </tr>
+          </thead>
+          <tbody id="stat_total"></tbody>
+        </table>
+-->
+      </div>
+      <!--中部-->
+      <div class="col-sm-9" style="background-color:lavenderblush;">
+        <!--已报名课程列表-->
+        <!--课程标题就是跳转链接，注明已上，未上和缺勤-->
+        <h4>我报名的课程</h4>
+        <table class="table table">
+            <thead>
+                <tr>
+                <th>培训日期</th>
+                <th>讲师姓名</th>
+                <th>限定人数</th>
+                <th>已报人数</th>
+                <th>状态</th>
+                </tr>
+            </thead>
+            <tbody id="lessonFuture">
+                <tr>
+                <td>2019年5月8日</td>
+                <td>讲师1</td>
+                <td>10人</td>
+                <td>1人</td>
+                <td>未开始</td>
+                </tr>
+                <tr>
+                <td>2019年3月21日</td>
+                <td>讲师1</td>
+                <td>10人</td>
+                <td>1人</td>
+                <td><a>提交感想文</a></td>
+                </tr>
+                <tr>
+                  <td colspan="5"> 
+                    <!--将已上课程的感想文与课程进行关联-->
+                      <!--感想文编写框亦在此-->
+					    <textarea class="form-control" rows="5" id="comment"></textarea>
+                  </td>
+                </tr>
+                <tr>
+                <td>2019年3月29日</td>
+                <td>讲师1</td>
+                <td>10人</td>
+                <td>1人</td>
+                <td><a data-toggle="collapse" data-target="#impression_03">感想文</a></td>
+                </tr>
+                <tr><td colspan="5"><div id="impression_03" class="collapse">汉字是古代人根据现实事物演变而来的。现在我来说一下《汉字的故事》中的一些小故事吧。例如：“一壶酒”与“一活鹅”的故事。因为“壶”和“湖”同音，所以地主要穷人还给他一“湖”酒。后来，王羲之用一“活”鹅和一“河”鹅反击了他。这个故事讲了汉字当中的同音字。很多汉字还是多音字。</div></td></tr>
+            </tbody>
+        </table>
+		<br>
+      </div>
+    </div>
+  </div>
+</div> 
+<script>
+function displayStat(data){
+  var tableCmt = document.getElementById("stat_comments");
+  for (i = 0; i < data.stat_comments.length; i++){
+    var newRow = document.createElement("tr");
+    var cellItem = document.createElement("td");
+    cellItem.innerHTML = data.stat_comments[i].item;
+    var cellValue = document.createElement("td");
+    cellValue.setAttribute("style", "text-align: right");
+    cellValue.innerHTML = data.stat_comments[i].value;
+    newRow.appendChild(cellItem);
+    newRow.appendChild(cellValue);
+    tableCmt.appendChild(newRow);
+  }
+/*
+  var tableTtl = document.getElementById("stat_total");
+  for (i = 0; i < data.stat_total.length; i++){
+    var newRow = document.createElement("tr");
+    var cellItem = document.createElement("td");
+    cellItem.innerHTML = data.stat_total[i].item;
+    var cellValue = document.createElement("td");
+    cellValue.setAttribute("style", "text-align: right");
+    cellValue.innerHTML = data.stat_total[i].value + data.stat_total[i].unit;
+    newRow.appendChild(cellItem);
+    newRow.appendChild(cellValue);
+    tableTtl.appendChild(newRow);
+  }
+  */
+  var divInfo = document.getElementById("stat_info");
+  var divRange = document.createElement("div");
+  divRange.innerHTML = "#1 统计范围：" + data.rangeDuring;
+  var divUpdate = document.createElement("div");
+  divUpdate.innerHTML = "#2 更新时间：" + data.updatedAt;
+  divInfo.appendChild(divRange);
+  divInfo.appendChild(divUpdate);
+}
+
+function initPage(){
+// load data!
+  var cmts = JSON.parse('{"stat_comments":[{"item":"课程平均评价", "value":"4.815"},{"item":"讲师平均打分", "value":"4.695"}, {"item":"培训总人次", "value":558, "unit":"人次"}, {"item":"培训总次数", "value":7, "unit":"次"}], "stat_total":[{"item":"培训总人次", "value":558, "unit":"人次"}, {"item":"培训总次数", "value":7, "unit":"次"}, {"item":"培训课程", "value":2292, "unit":"种"}], "updatedAt":"2019年3月6日", "rangeDuring":"2018年4月～2019年3月"}');
+
+  displayStat(cmts);
+}
+</script>
+
+</body>
+</html>

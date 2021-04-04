@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>米思米中国人才教育培训工程</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body onload="initPage()">
+<div class="container-fluid">
+  <div class="container" height="50">
+    <ul class="nav nav-tabs">
+      <li><a href="first_page.html"><img src="https://www.misumi.co.jp/assets/img/common/logo_sp.svg" class="img-thumbnail" alt="Home page" width="150"></a></li>
+      <li class="active"><a href="lesson_management.html">课程管理</a></li>
+      <li><a href="news_management.html">社内报管理</a></li>
+      <li><a href="user_management.html">人员管理</a></li>
+      <li><a href="statistic.html">统计管理</a></li>
+      <li><a href="login.html">登陆/管理后台</a></li>
+    </ul>
+    <br>
+    <div class="row">
+      <div class="col-sm-12" style="background-color:lavenderblush;">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>课程名称</th>
+              <th>讲师</th>
+              <th>培训日期</th>
+              <th>人数上限</th>
+              <th>学员等级</th>
+              <th>已报人数</th>
+              <th>操作</th><!--show text in a popup window!-->
+            </tr>
+          </thead>
+          <tbody id="lessonsRecently"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function displayLessons(data){
+  var tableles = document.getElementById("lessonsRecently");
+  for (i = 0; i < data.lessons.length; i++){
+    var newRow = document.createElement("tr");
+    var cellItem1 = document.createElement("td");
+    cellItem1.innerHTML = data.lessons[i].title;
+    newRow.appendChild(cellItem1);
+    //newRow.appendChild(document.createElement("td", { innerHTML : data.lessons[i].teacher }));
+    var cellItem2 = document.createElement("td");
+    cellItem2.innerHTML = data.lessons[i].teacher;
+    newRow.appendChild(cellItem2);
+    //newRow.appendChild(document.createElement("td", { innerHTML : data.lessons[i].date }));
+    var cellItem3 = document.createElement("td");
+    cellItem3.innerHTML = data.lessons[i].date;
+    newRow.appendChild(cellItem3);
+    
+    var cellItemlimit = document.createElement("td");
+    cellItemlimit.appendChild(document.createTextNode("10"));
+    newRow.appendChild(cellItemlimit);
+    
+    var cellItemlevel = document.createElement("td");
+    cellItemlevel.appendChild(document.createTextNode("3-A"));
+    newRow.appendChild(cellItemlevel);
+    
+    var cellItemenrolled = document.createElement("td");
+    cellItemenrolled.appendChild(document.createTextNode("5"));
+    newRow.appendChild(cellItemenrolled);
+
+    //<td><a>更新</a>|<a>复位密码</a><td>
+    var cellItem4 = document.createElement("td");
+    var ao = document.createElement("a");
+    ao.innerHTML = "感想文";
+    cellItem4.appendChild(ao);
+    cellItem4.appendChild(document.createTextNode("|"));
+    var ao2 = document.createElement("a");
+    ao2.innerHTML = "删除";
+    cellItem4.appendChild(ao2);
+    newRow.appendChild(cellItem4);
+    tableles.appendChild(newRow);
+  }
+
+  var newRow = document.createElement("tr");
+  var cellItem1 = document.createElement("td");
+  var inputtitle = document.createElement("input");
+  inputtitle.setAttribute("type", "text");
+  inputtitle.setAttribute("value", "new lesson title");
+  inputtitle.setAttribute("style", "width:100%;");
+  cellItem1.appendChild(inputtitle);
+  //<input type="text" value="gz0505" style="width:100%;">;
+  newRow.appendChild(cellItem1);
+  //newRow.appendChild(document.createElement("td", { innerHTML : data.lessons[i].teacher }));
+  var cellItem2 = document.createElement("td");
+  var inputteacher = document.createElement("input");
+  inputteacher.setAttribute("type", "text");
+  inputteacher.setAttribute("value", "current user");
+  inputteacher.setAttribute("style", "width:100%;");
+  cellItem2.appendChild(inputteacher);
+  newRow.appendChild(cellItem2);
+  //newRow.appendChild(document.createElement("td", { innerHTML : data.lessons[i].date }));
+  var cellItem3 = document.createElement("td");
+  var inputDT = document.createElement("input");
+  inputDT.setAttribute("type", "text");
+  inputDT.setAttribute("value", "Today");
+  inputDT.setAttribute("style", "width:100%;");
+  cellItem3.appendChild(inputDT);
+  newRow.appendChild(cellItem3);
+  
+  var cellItem4 = document.createElement("td");
+  var inputlimit = document.createElement("input");
+  inputlimit.setAttribute("type", "text");
+  inputlimit.setAttribute("value", "100");
+  inputlimit.setAttribute("style", "width:100%;");
+  cellItem4.appendChild(inputlimit);
+  newRow.appendChild(cellItem4);
+  
+  var cellItem5 = document.createElement("td");
+  var inputlevel = document.createElement("select");
+  inputlevel.setAttribute("class", "form-control");
+  inputlevel.setAttribute("id", "sel1");
+  inputlevel.setAttribute("style", "width:100%;");
+  
+  var option1 = document.createElement("option");
+  option1.text = "1-A";
+  inputlevel.add(option1);
+  var option2 = document.createElement("option");
+  option2.text = "2-A";
+  inputlevel.add(option2);
+
+  cellItem5.appendChild(inputlevel);
+  newRow.appendChild(cellItem5);
+  
+  var cellItem6 = document.createElement("td");
+  cellItem6.appendChild(document.createTextNode("N/A"));
+  newRow.appendChild(cellItem6);
+  
+  //<td><a>更新</a>|<a>复位密码</a><td>
+  var cellItem7 = document.createElement("td");
+  var ao = document.createElement("a");
+  ao.innerHTML = "提交";
+  cellItem7.appendChild(ao);
+  newRow.appendChild(cellItem7);
+  tableles.appendChild(newRow);
+}
+
+function initPage(){
+// load data!
+  var less = JSON.parse('{"lessons":[{"title":"UI设计培训课程-BS架构", "teacher":"john@example.com", "date":"2019年3月8日"},{"title":"MS System Center 2012", "teacher":"mary@example.com", "date":"2019年3月28日"},{"title":"软件开发培训课程-C++快速入门", "teacher":"july@example.com", "date":"2019年3月29日"}]}');
+
+  displayLessons(less);
+}
+</script>
+
+</body>
+</html>

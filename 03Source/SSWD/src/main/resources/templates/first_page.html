@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>米思米中国人才教育培训工程</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body onload="initPage()">
+<div class="container-fluid">
+  <div class="container" height="50">
+    <ul class="nav nav-tabs">
+      <li><img src="https://www.misumi.co.jp/assets/img/common/logo_sp.svg" class="img-thumbnail" alt="Home page" width="150"></li>
+      <li><a href="#">培训基本方针</a></li>
+      <li><a href="#">活动和实施计划</a></li>
+      <li><a href="lesson_summary.html">课程一览</a></li>
+      <li><a href="news_internal.html">社内报</a></li>
+      <li><a href="login.html">登陆</a></li>
+    </ul>
+    <br>
+    <div class="row">
+      <div class="col-sm-3" style="background-color:lavender;">
+          <h4>培训质量总评价</h4>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>项目</th>
+                <th style="text-align: right">数据</th>
+              </tr>
+            </thead>
+            <tbody id="stat_comments"></tbody>
+          </table>
+          <h4>培训讲座统计</h4>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>项目</th>
+                <th style="text-align: right">数据</th>
+              </tr>
+            </thead>
+            <tbody id="stat_total"></tbody>
+          </table>
+      </div>
+      <div class="col-sm-9" style="background-color:lavenderblush;">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators" id="indicatorsContain"></ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" id="slidesContain"></div>
+
+          <!-- Left and right controls -->
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+    	<br>
+        <div>
+          <h4>training in this month.</h4>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>培训日期</th>
+                <th>课程名称</th>
+                <th>报名</th>
+              </tr>
+            </thead>
+            <tbody id="lessonsRecently"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function displayLessons(data){
+  var tableles = document.getElementById("lessonsRecently");
+  for (i = 0; i < data.lessons.length; i++){
+    var newRow = document.createElement("tr");
+    var cellItem1 = document.createElement("td");
+    cellItem1.innerHTML = data.lessons[i].title;
+    newRow.appendChild(cellItem1);
+    //newRow.appendChild(document.createElement("td", { innerHTML : data.lessons[i].teacher }));
+    var cellItem2 = document.createElement("td");
+    cellItem2.innerHTML = data.lessons[i].teacher;
+    newRow.appendChild(cellItem2);
+    //newRow.appendChild(document.createElement("td", { innerHTML : data.lessons[i].date }));
+    var cellItem3 = document.createElement("td");
+    cellItem3.innerHTML = data.lessons[i].date;
+    newRow.appendChild(cellItem3);
+    tableles.appendChild(newRow);
+  }
+}
+
+function createImgElemet(url, title, actived){
+  var rv = document.createElement("div");
+  if (actived) {
+    rv.setAttribute("class", "item active");
+  }else{
+    rv.setAttribute("class", "item");
+  }
+  
+  var img = document.createElement("img");
+  img.setAttribute("src", url);
+  img.setAttribute("alt", title);
+  img.setAttribute("style", "width:100%;");
+  
+  var divtext = document.createElement("div");
+  divtext.setAttribute("class", "carousel-caption");
+  divtext.innerHTML = title;
+  
+  rv.appendChild(img);
+  rv.appendChild(divtext);
+  return rv;
+}
+
+function createIndElemet(index, actived){
+  var rv = document.createElement("li");
+  rv.setAttribute("data-target", "#myCarousel");
+  rv.setAttribute("data-slide-to", index.toString());
+  if (actived) {rv.setAttribute("class", "active");}
+  return rv;
+}
+
+function displaySlider(data){
+  var slider = document.getElementById("slidesContain");
+  var contain = document.getElementById("indicatorsContain");
+  
+  for (i =0; i < data.news.length; i ++){
+    contain.appendChild(createIndElemet(i, i == 0));
+    slider.appendChild(createImgElemet(data.news[i].url,data.news[i].newtitile,i == 0));
+  }
+}
+
+function displayStat(data){
+  var tableCmt = document.getElementById("stat_comments");
+  for (i = 0; i < data.stat_comments.length; i++){
+    var newRow = document.createElement("tr");
+    var cellItem = document.createElement("td");
+    cellItem.innerHTML = data.stat_comments[i].item;
+    var cellValue = document.createElement("td");
+    cellValue.setAttribute("style", "text-align: right");
+    cellValue.innerHTML = data.stat_comments[i].value;
+    newRow.appendChild(cellItem);
+    newRow.appendChild(cellValue);
+    tableCmt.appendChild(newRow);
+  }
+
+  var tableTtl = document.getElementById("stat_total");
+  for (i = 0; i < data.stat_total.length; i++){
+    var newRow = document.createElement("tr");
+    var cellItem = document.createElement("td");
+    cellItem.innerHTML = data.stat_total[i].item;
+    var cellValue = document.createElement("td");
+    cellValue.setAttribute("style", "text-align: right");
+    cellValue.innerHTML = data.stat_total[i].value + data.stat_total[i].unit;
+    newRow.appendChild(cellItem);
+    newRow.appendChild(cellValue);
+    tableTtl.appendChild(newRow);
+  }
+}
+
+function initPage(){
+// load data!
+  var cmts = JSON.parse('{"stat_comments":[{"item":"学员对培训内容平均理解程度", "value":"4.815"},{"item":"学员对讲师的平均打分", "value":"4.695"}], "stat_total":[{"item":"累计学员", "value":55948, "unit":"人次"}, {"item":"累计培训", "value":7238, "unit":"次"}, {"item":"培训课程", "value":2292, "unit":"种"}]}');
+  var data = JSON.parse('{"news":[{ "newtitile":"社内报1", "url":"http://www.tourismsoutheast.com/assets/training+options.png", "content":"Fido" ,"newstatus":1, "createtime":"2019-03-25"},{ "newtitile":"社内报2", "url":"https://appita.com/images/template/training.png", "content":"Felix"  , "newstatus":1, "createtime":"2019-03-27"},{ "newtitile":"社内报3", "url":"http://www.tourismsoutheast.com/assets/training+options.png", "content":"Lightning"  ,"newstatus":1, "createtime":"2019-03-29"}]}');
+  var less = JSON.parse('{"lessons":[{"title":"UI设计培训课程-BS架构", "teacher":"john@example.com", "date":"2019年3月8日"},{"title":"MS System Center 2012", "teacher":"mary@example.com", "date":"2019年3月28日"},{"title":"软件开发培训课程-C++快速入门", "teacher":"july@example.com", "date":"2019年3月29日"}]}');
+
+  displayLessons(less);
+
+  displayStat(cmts);
+  displaySlider(data);
+}
+</script>
+
+</body>
+</html>

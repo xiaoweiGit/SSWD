@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>米思米中国人才教育培训工程</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body onload="initPage()">
+  <div class="container" height="50">
+    <ul class="nav nav-tabs">
+      <li><a href="first_page.html"><img src="https://www.misumi.co.jp/assets/img/common/logo_sp.svg" class="img-thumbnail" alt="Home page" width="150"></a></li>
+      <li><a href="#">培训基本方针</a></li>
+      <li><a href="#">活动和实施计划</a></li>
+      <li><a href="lesson_summary.html">课程一览</a></li>
+      <li class="active"><a href="#">社内报</a></li>
+      <li><a href="login.html">登陆</a></li>
+    </ul>
+    <br>
+    <div class="row">
+      <div class="col-sm-3" style="background-color:white;">
+          <h4>培训质量总评价</h4>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>项目</th>
+                <th style="text-align: right">数据</th>
+              </tr>
+            </thead>
+            <tbody id="stat_comments"></tbody>
+          </table>
+          <h4>培训讲座统计</h4>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>项目</th>
+                <th style="text-align: right">数据</th>
+              </tr>
+            </thead>
+            <tbody id="stat_total"></tbody>
+          </table>
+      </div>
+      <div class="col-sm-9" style="background-color:white;">
+        <div class="panel-group" id="accordion"></div>
+      </div>
+    </div>
+  </div>
+<script>
+
+function displayStat(data){
+  var tableCmt = document.getElementById("stat_comments");
+  for (i = 0; i < data.stat_comments.length; i++){
+    var newRow = document.createElement("tr");
+    var cellItem = document.createElement("td");
+    cellItem.innerHTML = data.stat_comments[i].item;
+    var cellValue = document.createElement("td");
+    cellValue.setAttribute("style", "text-align: right");
+    cellValue.innerHTML = data.stat_comments[i].value;
+    newRow.appendChild(cellItem);
+    newRow.appendChild(cellValue);
+    tableCmt.appendChild(newRow);
+  }
+
+  var tableTtl = document.getElementById("stat_total");
+  for (i = 0; i < data.stat_total.length; i++){
+    var newRow = document.createElement("tr");
+    var cellItem = document.createElement("td");
+    cellItem.innerHTML = data.stat_total[i].item;
+    var cellValue = document.createElement("td");
+    cellValue.setAttribute("style", "text-align: right");
+    cellValue.innerHTML = data.stat_total[i].value + data.stat_total[i].unit;
+    newRow.appendChild(cellItem);
+    newRow.appendChild(cellValue);
+    tableTtl.appendChild(newRow);
+  }
+}
+
+function displayNews(data){
+  var panelgrp = document.getElementById("accordion");
+
+  for (i = 0; i < data.news.length; i++){
+    var div_panel = document.createElement("div");
+    div_panel.setAttribute("class", "panel panel-default");
+    var div_panelheading = document.createElement("div");
+    div_panelheading.setAttribute("class", "panel-heading");
+    var h4_title = document.createElement("h4");
+    h4_title.setAttribute("class", "panel-title");
+    var a_data = document.createElement("a");
+    a_data.setAttribute("data-toggle", "collapse");
+    a_data.setAttribute("data-parent", "#accordion");
+    var newid = "collapse"+(i+1);
+    console.log(newid);
+    a_data.setAttribute("href", "#"+newid);
+    a_data.innerHTML = data.news[i].newtitile;
+    
+    var img = document.createElement("img");
+    //<img src="cinqueterre.jpg" class="img-rounded" alt="Cinque Terre">style="width:100%"
+	img.setAttribute("src", data.news[i].url);
+    img.setAttribute("class", "img-rounded");
+    img.setAttribute("alt", data.news[i].newtitile);
+    img.setAttribute("style", "width:100%");
+    
+    var div_collapse = document.createElement("div");
+    div_collapse.setAttribute("class", "panel-collapse collapse");
+    div_collapse.setAttribute("id", newid);
+    var div_panelbody = document.createElement("div");
+    div_panelbody.setAttribute("class", "panel-body");
+    div_panelbody.innerHTML = data.news[i].content;
+    var div_dt = document.createElement("div");
+    div_dt.innerHTML = data.news[i].createtime;
+    
+    panelgrp.appendChild(div_panel);
+    div_panel.appendChild(div_panelheading);
+    div_panelheading.appendChild(h4_title);
+    h4_title.appendChild(a_data);
+    div_panel.appendChild(div_collapse);
+    div_collapse.appendChild(div_dt);
+    div_collapse.appendChild(img);
+    div_collapse.appendChild(div_panelbody);
+  }
+}
+
+function initPage(){
+// load data!
+  var data = JSON.parse('{"news":[{ "newtitile":"社内报1", "url":"http://www.tourismsoutheast.com/assets/training+options.png", "content":"Fido" ,"newstatus":1, "createtime":"2019-03-25"},{ "newtitile":"社内报2", "url":"https://appita.com/images/template/training.png", "content":"Felix"  , "newstatus":1, "createtime":"2019-03-27"},{ "newtitile":"社内报3", "url":"http://www.tourismsoutheast.com/assets/training+options.png", "content":"Lightning"  ,"newstatus":1, "createtime":"2019-03-29"}]}');
+
+  var cmts = JSON.parse('{"stat_comments":[{"item":"学员对培训内容平均理解程度", "value":"4.815"},{"item":"学员对讲师的平均打分", "value":"4.695"}], "stat_total":[{"item":"累计学员", "value":55948, "unit":"人次"}, {"item":"累计培训", "value":7238, "unit":"次"}, {"item":"培训课程", "value":2292, "unit":"种"}]}');
+
+  displayNews(data);
+  displayStat(cmts);
+}
+</script>
+    
+</body>
+</html>
